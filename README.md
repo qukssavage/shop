@@ -1,16 +1,62 @@
-# React + Vite
+# PurpleShop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Учебный проект интернет-магазина на React + Vite. Данные берутся из публичного API [dummyjson.com](https://dummyjson.com/products).
 
-Currently, two official plugins are available:
+## Стек
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** — UI
+- **Vite** — сборка и dev-сервер
+- **CSS Modules** (plain CSS per component) — стилизация
+- **Google Fonts** — шрифт Nunito
 
-## React Compiler
+## Функционал
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Возможность | Описание |
+|---|---|
+| Каталог товаров | Загрузка 194 товаров из DummyJSON API |
+| Поиск | Живой поиск по названию и описанию без запросов к API |
+| Фильтр по категориям | Горизонтальные чипы по всем категориям с русскими названиями |
+| Сортировка | По цене и по алфавиту с анимацией перестановки карточек |
+| Карточка товара | Название, описание (3 строки + кнопка «Ещё»), картинка, рейтинг, цена со скидкой, бейдж скидки |
+| Модальное окно | Полное описание, цены, закрытие по клику/Escape |
+| Sticky-шапка | Уменьшается при скролле, возвращается только у самого верха |
+| Кнопка «Наверх» | Появляется при скролле, плавная прокрутка |
+| Социальные ссылки | Telegram, Instagram, Facebook, телефон — в шапке с брендовыми цветами |
 
-## Expanding the ESLint configuration
+## Структура проекта
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+├── assets/
+│   ├── icons/          # SVG-иконки как React-компоненты
+│   └── images/         # Фоновый паттерн
+├── components/
+│   ├── CategoryFilter/ # Фильтр по категориям
+│   ├── Header/         # Шапка сайта со sticky-эффектом
+│   ├── Modal/          # Модальное окно с полным описанием
+│   ├── ProductCard/    # Карточка товара
+│   ├── ScrollTopButton/# Кнопка возврата наверх
+│   ├── SearchBar/      # Поле поиска
+│   └── SortButtons/    # Кнопки сортировки
+├── hooks/
+│   └── useProducts.js  # Хук загрузки товаров из API
+├── App.jsx
+├── App.css
+├── index.css
+└── main.jsx
+```
+
+## Запуск
+
+```bash
+npm install
+npm run dev
+```
+
+Открыть [http://localhost:5173](http://localhost:5173)
+
+## Сборка
+
+```bash
+npm run build
+```
