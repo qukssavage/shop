@@ -1,120 +1,80 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useState, useMemo } from 'react'
+import { useProducts } from './hooks/useProducts'
+import { Header } from './components/Header/Header'
+import { SearchBar } from './components/SearchBar/SearchBar'
+import { CategoryFilter } from './components/CategoryFilter/CategoryFilter'
+import { SortButtons } from './components/SortButtons/SortButtons'
+import { ProductCard } from './components/ProductCard/ProductCard'
+import { ScrollTopButton } from './components/ScrollTopButton/ScrollTopButton'
+import bgPattern from './assets/images/bg-pattern.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const products = useProducts()
+  const [sortType, setSortType]         = useState(null)
+  const [sortKey, setSortKey]           = useState(0)
+  const [searchQuery, setSearchQuery]   = useState('')
+  const [activeCategory, setActiveCategory] = useState('all')
+
+  const handleSort = (type) => {
+    setSortType(type)
+    setSortKey(k => k + 1)
+  }
+
+  const categories = useMemo(
+    () => ['all', ...new Set(products.map(p => p.category).sort())],
+    [products]
+  )
+
+  const filtered = useMemo(() => {
+    const q = searchQuery.toLowerCase()
+
+    const afterFilter = products.filter(p => {
+      const matchSearch = !q ||
+        p.title.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q)
+      const matchCat = activeCategory === 'all' || p.category === activeCategory
+      return matchSearch && matchCat
+    })
+
+    return [...afterFilter].sort((a, b) => {
+      if (sortType === 'price') return a.price - b.price
+      if (sortType === 'title') return a.title.localeCompare(b.title)
+      return 0
+    })
+  }, [products, searchQuery, activeCategory, sortType])
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <Header />
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      <div className="app" style={{ backgroundImage: `url(${bgPattern})` }}>
+        <div className="controls">
+          <SearchBar value={searchQuery} onChange={setSearchQuery} />
+          <SortButtons sortType={sortType} onSort={handleSort} productCount={filtered.length} />
+          <CategoryFilter
+            categories={categories}
+            active={activeCategory}
+            onSelect={setActiveCategory}
+          />
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+        <div className="products-grid">
+          {filtered.map((product, index) => (
+            <ProductCard
+              key={`${product.id}-${sortKey}`}
+              product={product}
+              index={index}
+            />
+          ))}
+        </div>
+
+        {filtered.length === 0 && (
+          <p className="no-results">Ничего не найдено 🔍</p>
+        )}
+      </div>
+
+      <ScrollTopButton />
     </>
   )
 }
