@@ -8,7 +8,7 @@ interface LayoutFormProps {
 const LayoutForm: FC<LayoutFormProps> = ({ children }) => {
   return (
     <div className="layoutForm">
-      <div className="loyaoutForm__left">
+      <div className="layoutForm__left">
         <img src={logoIcon} alt="logo" className="layoutForm__left-img"/>
       </div>
       <div className="layoutForm__right">

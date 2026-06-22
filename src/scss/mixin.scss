@@ -1,4 +1,7 @@
+@use "@scss/variabels" as *;
+
 @mixin text($size, $color, $weight: 400) {
+  font-family: $font-family;
   font-weight: $weight;
   font-size: $size;
   color: $color;
@@ -12,7 +15,9 @@
 
 @mixin hover-media {
   @media (hover: hover) {
-    @content;
+    &:hover {
+      @content;
+    }
   }
 }
 @mixin touch-active {

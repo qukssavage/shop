@@ -1,3 +1,6 @@
+@use "@scss/variables" as *;
+@use "@scss/mixin" as *;
+
 .layoutForm {
   height: 100svh;
   display: flex;
@@ -10,5 +13,61 @@
   }
   &__right {
     width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-block {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 450px;
+      width: 100%;
+      &_title {
+        @include text(36px, $blc, 600);
+      }
+
+      &_form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+        margin-bottom: 45px;
+      }
+      &_input {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        &_span {
+          @include text(17px, $gr, 400);
+        }
+        &-field {
+          width: 100%;
+          padding: 20px;
+          height: 65px;
+          border: 1px solid $br-inp-gr;
+          border-radius: 10px;
+          box-shadow: 15px 20px 45px 0px #e9e9e940;
+          background: $wh;
+          @include text(17px, $blc, 400);
+          &::placeholder {
+            @include text(17px, $gr, 400);
+          }
+          &:focus::placeholder {
+            color: transparent;
+          }
+        }
+      }
+      &_info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        &-text {
+          @include text(14px, $gr-span, 400);
+        }
+        &-link {
+          @include text(14px, $btn-or, 400);
+        }
+      }
+    }
   }
 }
