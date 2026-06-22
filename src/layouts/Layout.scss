@@ -1,0 +1,14 @@
+.layoutForm {
+  height: 100svh;
+  display: flex;
+  &__left {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #d4d6e0;
+  }
+  &__right {
+    width: 50%;
+  }
+}

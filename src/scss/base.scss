@@ -1,0 +1,41 @@
+@use "@scss/mixin" as *;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "OpenSans", sans-serif;
+  font-weight: 400;
+  border: none;
+  outline: none;
+}
+
+body {
+  min-width: 320px;
+  background-color: #fff;
+}
+
+button,
+input {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: blue;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  @include hover-media {
+    background: green;
+  }
+  @include media(768) {
+    @include touch-active {
+        background: red;
+    }
+  }
+}

@@ -1,62 +1,73 @@
-# PurpleShop
+# React + TypeScript + Vite
 
-Учебный проект интернет-магазина на React + Vite. Данные берутся из публичного API [dummyjson.com](https://dummyjson.com/products).
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Стек
+Currently, two official plugins are available:
 
-- **React 19** — UI
-- **Vite** — сборка и dev-сервер
-- **CSS Modules** (plain CSS per component) — стилизация
-- **Google Fonts** — шрифт Nunito
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Функционал
+## React Compiler
 
-| Возможность | Описание |
-|---|---|
-| Каталог товаров | Загрузка 194 товаров из DummyJSON API |
-| Поиск | Живой поиск по названию и описанию без запросов к API |
-| Фильтр по категориям | Горизонтальные чипы по всем категориям с русскими названиями |
-| Сортировка | По цене и по алфавиту с анимацией перестановки карточек |
-| Карточка товара | Название, описание (3 строки + кнопка «Ещё»), картинка, рейтинг, цена со скидкой, бейдж скидки |
-| Модальное окно | Полное описание, цены, закрытие по клику/Escape |
-| Sticky-шапка | Уменьшается при скролле, возвращается только у самого верха |
-| Кнопка «Наверх» | Появляется при скролле, плавная прокрутка |
-| Социальные ссылки | Telegram, Instagram, Facebook, телефон — в шапке с брендовыми цветами |
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Структура проекта
+## Expanding the ESLint configuration
 
-```
-src/
-├── assets/
-│   ├── icons/          # SVG-иконки как React-компоненты
-│   └── images/         # Фоновый паттерн
-├── components/
-│   ├── CategoryFilter/ # Фильтр по категориям
-│   ├── Header/         # Шапка сайта со sticky-эффектом
-│   ├── Modal/          # Модальное окно с полным описанием
-│   ├── ProductCard/    # Карточка товара
-│   ├── ScrollTopButton/# Кнопка возврата наверх
-│   ├── SearchBar/      # Поле поиска
-│   └── SortButtons/    # Кнопки сортировки
-├── hooks/
-│   └── useProducts.js  # Хук загрузки товаров из API
-├── App.jsx
-├── App.css
-├── index.css
-└── main.jsx
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-## Запуск
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```bash
-npm install
-npm run dev
-```
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-Открыть [http://localhost:5173](http://localhost:5173)
-
-## Сборка
-
-```bash
-npm run build
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```

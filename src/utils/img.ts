@@ -1,0 +1,17 @@
+export { default as addCartIcon } from "@img/addCart.svg";
+export { default as arrowIcon } from "@img/arrow.svg";
+export { default as avatarImgIcon } from "@img/avatarImg.svg";
+export { default as cartIcon } from "@img/cart-icon.svg";
+export { default as cart } from "@img/cart.svg";
+export { default as closeIcon } from "@img/close.svg";
+export { default as logoIcon } from "@img/logo.svg";
+export { default as logoutIcon } from "@img/logout.svg";
+export { default as menuIcon } from "@img/menu-icon.svg";
+export { default as minusIcon } from "@img/minus.svg";
+export { default as noNameIcon } from "@img/noname.svg";
+export { default as plusIcon } from "@img/plus.svg";
+export { default as searchIcon } from "@img/search.svg";
+export { default as searchCloseIcon } from "@img/searchclose.svg";
+export { default as starIcon } from "@img/star.svg";
+export { default as userIcon } from "@img/userIcon.svg";
+export { default as userPhotoIcon } from "@img/userPhoto.svg";
