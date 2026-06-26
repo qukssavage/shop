@@ -25,7 +25,6 @@
       &_title {
         @include text(36px, $blc, 600);
       }
-
       &_form {
         display: flex;
         flex-direction: column;
@@ -60,6 +59,7 @@
       &_info {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 10px;
         &-text {
           @include text(14px, $gr-span, 400);

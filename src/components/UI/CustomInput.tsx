@@ -10,7 +10,7 @@ const CustomInput: FC<CustomInputProps> = ({ placeholder, type, text }) => {
   return (
     <>
       <div className="layoutForm__right-block_input">
-        <span className="layoutForm__right-block_input_icon">{text}</span>
+        <span className="layoutForm__right-block_input_span">{text}</span>
         <input
           type={type}
           placeholder={placeholder}

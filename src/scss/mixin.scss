@@ -1,4 +1,4 @@
-@use "@scss/variabels" as *;
+@use "@scss/variables" as *;
 
 @mixin text($size, $color, $weight: 400) {
   font-family: $font-family;

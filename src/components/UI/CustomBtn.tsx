@@ -10,13 +10,12 @@ interface CustomBtnProps {
   padding?: string;
   textTransform?: boolean;
 }
-
 const CustomBtn: FC<CustomBtnProps> = ({
   text,
   icon,
+  center,
   width,
   height,
-  center,
   gap,
   padding,
   textTransform,
@@ -26,7 +25,7 @@ const CustomBtn: FC<CustomBtnProps> = ({
       <button
         className="customBtn"
         style={{
-          width: width,
+          maxWidth: width,
           height: height,
           marginLeft: center ? "auto" : "",
           marginRight: center ? "auto" : "",
