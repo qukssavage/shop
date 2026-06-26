@@ -36,7 +36,10 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
-        &_span {
+        &-error {
+          @include text(14px, $red, 400);
+        }
+        &-span {
           @include text(17px, $gr, 400);
         }
         &-field {

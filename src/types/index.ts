@@ -1,1 +1,6 @@
-// types for the app 
+// types for the app
+
+export interface ILogin {
+  username: string;
+  password: string;
+}
